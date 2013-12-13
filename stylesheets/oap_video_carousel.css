@@ -1,0 +1,61 @@
+.view .jcarousel-skin-osu-video .jcarousel-item {
+  max-width: 195px;
+  padding: 0 25px;
+	position: relative;
+}
+
+.view .jcarousel-skin-osu-video .jcarousel-item a {
+	color: #252525;
+	text-decoration: none;
+}
+
+.view .jcarousel-skin-osu-video .jcarousel-item .play-button {
+  background: url('../images/video-play-button.png');
+	width: 53px;
+	height: 52px;
+	position: absolute;
+	top: 26px;
+	left: 97.5px;
+	opacity: 0.65;
+}
+
+.view .jcarousel-skin-osu-video .jcarousel-item a:hover .play-button {
+	opacity: 0.8;
+}
+
+.view .jcarousel-skin-osu-video .jcarousel-item p {
+	padding-top: 5px;
+}
+
+.view .jcarousel-skin-osu-video .jcarousel-prev-disabled-horizontal:hover,
+.view .jcarousel-skin-osu-video .jcarousel-next-disabled-horizontal:hover {
+	cursor: default;
+}
+
+.view .jcarousel-skin-osu-video .jcarousel-container {
+	overflow: hidden;
+}
+
+@media (min-width: 1200px) {
+	.view .jcarousel-skin-osu-video .jcarousel-clip-horizontal {
+		width: 774px;
+	}
+}
+
+@media (min-width: 980px) and (max-width: 1199px) {
+	.view .jcarousel-skin-osu-video .jcarousel-clip-horizontal {
+		width: 508px;
+	}
+	.view .jcarousel-skin-osu-video .jcarousel-container {
+		width: 602px;
+	}
+}
+
+@media (max-width: 979px) {
+	.view .jcarousel-skin-osu-video .jcarousel-clip-horizontal {
+		width: 254px;
+	}
+	.view .jcarousel-skin-osu-video .jcarousel-container {
+		width: 348px;
+	}
+}

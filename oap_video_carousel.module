@@ -1,0 +1,72 @@
+<?php
+/**
+ * @file
+ * Code for the oap_video_carousel feature.
+ */
+
+include_once 'oap_video_carousel.features.inc';
+
+
+/* -- Create a field formatter for outputting the YouTube ID only -- */
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function oap_video_carousel_field_formatter_info() {
+  return array(
+    'youtube_id' => array(
+      'label' => t('YouTube ID'),
+      'field types' => array('file'),
+    ),
+		'youtube_title' => array(
+      'label' => t('YouTube Title'),
+      'field types' => array('file'),
+    ),
+  );
+}
+/**
+ * Implements hook_field_formatter_view().
+ */
+function oap_video_carousel_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+  switch ($display['type']) {
+    case 'youtube_id':
+      foreach ($items as $delta => $item) {
+				$element[$delta] = array('#markup' => str_replace('youtube://v/', '', $item['uri']));
+      }
+    	break;
+		case 'youtube_title':
+      foreach ($items as $delta => $item) {
+				$element[$delta] = array('#markup' => $item['origname']);
+      }
+    	break;
+  }
+  return $element;
+}
+
+
+/* -- Override the file entity template to remove problematic contextual links -- */
+
+/**
+ * Implements hook_theme().
+ */
+function oap_video_carousel_theme(){
+  $theme = array();
+  $theme['file__video'] = array(
+    'render element' => 'elements',
+    'template' => 'file__video'
+  );
+  return $theme;
+}
+
+/**
+ * Implementation of hook_views_query_alter
+ *
+ * @param type $view
+ * @param type $query 
+ */
+function oap_video_carousel_views_query_alter(&$view, &$query) {
+  if ($view->name == 'Video') {
+		$query->where[0]['type'] = 'OR';
+  }
+}
