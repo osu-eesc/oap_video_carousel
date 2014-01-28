@@ -52,7 +52,7 @@ function oap_video_carousel_views_default_views() {
 	}
 ?>
 <div class="section-header">
-  <span>[field_issue] <?php if ($current_depth > 1) print \'Related\'; ?> Multimedia</span>
+  <span>[field_issue] <?php if ($current_depth > 1) print \'Related\'; ?> Videos</span>
   <a href="<?php print $base_url; ?>/videos.rss"></a>
 </div>';
   $handler->display->display_options['header']['area']['format'] = 'php_code';
@@ -191,9 +191,92 @@ function oap_video_carousel_views_default_views() {
   $handler->display->display_options['filters']['field_article_videos_fid']['field'] = 'field_article_videos_fid';
   $handler->display->display_options['filters']['field_article_videos_fid']['operator'] = 'not empty';
   $handler->display->display_options['filters']['field_article_videos_fid']['group'] = 1;
+  /* Filter criterion: Content: Current Issue? (field_current_issue) */
+  $handler->display->display_options['filters']['field_current_issue_value']['id'] = 'field_current_issue_value';
+  $handler->display->display_options['filters']['field_current_issue_value']['table'] = 'field_data_field_current_issue';
+  $handler->display->display_options['filters']['field_current_issue_value']['field'] = 'field_current_issue_value';
+  $handler->display->display_options['filters']['field_current_issue_value']['relationship'] = 'bid';
+  $handler->display->display_options['filters']['field_current_issue_value']['value'] = array(
+    'yes' => 'yes',
+  );
 
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block_5');
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Issue */
+  $handler->display->display_options['fields']['field_issue']['id'] = 'field_issue';
+  $handler->display->display_options['fields']['field_issue']['table'] = 'field_data_field_issue';
+  $handler->display->display_options['fields']['field_issue']['field'] = 'field_issue';
+  $handler->display->display_options['fields']['field_issue']['label'] = '';
+  $handler->display->display_options['fields']['field_issue']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_issue']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_issue']['type'] = 'taxonomy_term_reference_plain';
+  /* Field: Video title */
+  $handler->display->display_options['fields']['field_article_videos_2']['id'] = 'field_article_videos_2';
+  $handler->display->display_options['fields']['field_article_videos_2']['table'] = 'field_data_field_article_videos';
+  $handler->display->display_options['fields']['field_article_videos_2']['field'] = 'field_article_videos';
+  $handler->display->display_options['fields']['field_article_videos_2']['ui_name'] = 'Video title';
+  $handler->display->display_options['fields']['field_article_videos_2']['label'] = '';
+  $handler->display->display_options['fields']['field_article_videos_2']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_article_videos_2']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_article_videos_2']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_article_videos_2']['type'] = 'youtube_title';
+  $handler->display->display_options['fields']['field_article_videos_2']['delta_offset'] = '0';
+  /* Field: Video ID */
+  $handler->display->display_options['fields']['field_article_videos_1']['id'] = 'field_article_videos_1';
+  $handler->display->display_options['fields']['field_article_videos_1']['table'] = 'field_data_field_article_videos';
+  $handler->display->display_options['fields']['field_article_videos_1']['field'] = 'field_article_videos';
+  $handler->display->display_options['fields']['field_article_videos_1']['ui_name'] = 'Video ID';
+  $handler->display->display_options['fields']['field_article_videos_1']['label'] = '';
+  $handler->display->display_options['fields']['field_article_videos_1']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_article_videos_1']['alter']['text'] = '[field_article_videos_1]';
+  $handler->display->display_options['fields']['field_article_videos_1']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_article_videos_1']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_article_videos_1']['type'] = 'youtube_id';
+  $handler->display->display_options['fields']['field_article_videos_1']['settings'] = array(
+    'file_view_mode' => 'media_original',
+  );
+  $handler->display->display_options['fields']['field_article_videos_1']['delta_offset'] = '0';
+  /* Field: Video thumbnail */
+  $handler->display->display_options['fields']['field_article_videos']['id'] = 'field_article_videos';
+  $handler->display->display_options['fields']['field_article_videos']['table'] = 'field_data_field_article_videos';
+  $handler->display->display_options['fields']['field_article_videos']['field'] = 'field_article_videos';
+  $handler->display->display_options['fields']['field_article_videos']['ui_name'] = 'Video thumbnail';
+  $handler->display->display_options['fields']['field_article_videos']['label'] = '';
+  $handler->display->display_options['fields']['field_article_videos']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_article_videos']['alter']['text'] = '<a href="[field_article_videos_1]" class="youtube cboxElement">
+[field_article_videos]
+[title]
+</a>';
+  $handler->display->display_options['fields']['field_article_videos']['alter']['external'] = TRUE;
+  $handler->display->display_options['fields']['field_article_videos']['alter']['link_class'] = 'colorbox-load';
+  $handler->display->display_options['fields']['field_article_videos']['alter']['strip_tags'] = TRUE;
+  $handler->display->display_options['fields']['field_article_videos']['alter']['preserve_tags'] = '<img><h2>';
+  $handler->display->display_options['fields']['field_article_videos']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_article_videos']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_article_videos']['type'] = 'file_rendered';
+  $handler->display->display_options['fields']['field_article_videos']['settings'] = array(
+    'file_view_mode' => 'default',
+  );
+  $handler->display->display_options['fields']['field_article_videos']['delta_offset'] = '0';
+  /* Field: Global: Custom text */
+  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['label'] = '';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="http://youtube.com/embed/[field_article_videos_1]?fs=1&width=640&height=480&iframe=true&autoplay=1" class="colorbox-load">
+<div class="play-button"></div>
+[field_article_videos]
+<p>[field_article_videos_2]</p>
+</a>';
+  $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
+  /* Field: Content: Edit link */
+  $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
+  $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
+  $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
+  $handler->display->display_options['fields']['edit_node']['label'] = '';
+  $handler->display->display_options['fields']['edit_node']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['edit_node']['text'] = '[ edit ]';
 
   /* Display: Feed */
   $handler = $view->new_display('feed', 'Feed', 'feed_1');
@@ -203,9 +286,9 @@ function oap_video_carousel_views_default_views() {
   $handler->display->display_options['style_plugin'] = 'rss';
   $handler->display->display_options['style_options']['description'] = 'Latest multimedia from Oregon\'s Agricultural Progress';
   $handler->display->display_options['row_plugin'] = 'rss_fields';
-  $handler->display->display_options['row_options']['title_field'] = 'title';
+  $handler->display->display_options['row_options']['title_field'] = 'field_article_videos_2';
   $handler->display->display_options['row_options']['link_field'] = 'field_article_videos_1';
-  $handler->display->display_options['row_options']['description_field'] = 'field_deck';
+  $handler->display->display_options['row_options']['description_field'] = 'field_article_videos_3';
   $handler->display->display_options['row_options']['creator_field'] = 'nothing';
   $handler->display->display_options['row_options']['date_field'] = 'changed';
   $handler->display->display_options['row_options']['guid_field_options'] = array(
@@ -214,26 +297,16 @@ function oap_video_carousel_views_default_views() {
   );
   $handler->display->display_options['defaults']['header'] = FALSE;
   $handler->display->display_options['defaults']['relationships'] = FALSE;
+  /* Relationship: Book: Parent */
+  $handler->display->display_options['relationships']['nid']['id'] = 'nid';
+  $handler->display->display_options['relationships']['nid']['table'] = 'book_parent';
+  $handler->display->display_options['relationships']['nid']['field'] = 'nid';
+  $handler->display->display_options['relationships']['nid']['required'] = TRUE;
+  /* Relationship: Book: Top level book */
+  $handler->display->display_options['relationships']['bid']['id'] = 'bid';
+  $handler->display->display_options['relationships']['bid']['table'] = 'book';
+  $handler->display->display_options['relationships']['bid']['field'] = 'bid';
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Issue */
-  $handler->display->display_options['fields']['field_issue']['id'] = 'field_issue';
-  $handler->display->display_options['fields']['field_issue']['table'] = 'field_data_field_issue';
-  $handler->display->display_options['fields']['field_issue']['field'] = 'field_issue';
-  $handler->display->display_options['fields']['field_issue']['label'] = '';
-  $handler->display->display_options['fields']['field_issue']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_issue']['alter']['strip_tags'] = TRUE;
-  $handler->display->display_options['fields']['field_issue']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_issue']['type'] = 'taxonomy_term_reference_plain';
-  /* Field: Content: Title */
-  $handler->display->display_options['fields']['title']['id'] = 'title';
-  $handler->display->display_options['fields']['title']['table'] = 'node';
-  $handler->display->display_options['fields']['title']['field'] = 'title';
-  $handler->display->display_options['fields']['title']['label'] = '';
-  $handler->display->display_options['fields']['title']['alter']['max_length'] = '22';
-  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
-  $handler->display->display_options['fields']['title']['alter']['strip_tags'] = TRUE;
-  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['title']['link_to_node'] = FALSE;
   /* Field: Video URL */
   $handler->display->display_options['fields']['field_article_videos_1']['id'] = 'field_article_videos_1';
   $handler->display->display_options['fields']['field_article_videos_1']['table'] = 'field_data_field_article_videos';
@@ -295,7 +368,8 @@ function oap_video_carousel_views_default_views() {
   $handler->display->display_options['fields']['changed']['label'] = '';
   $handler->display->display_options['fields']['changed']['alter']['strip_tags'] = TRUE;
   $handler->display->display_options['fields']['changed']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['changed']['date_format'] = 'short';
+  $handler->display->display_options['fields']['changed']['date_format'] = 'custom';
+  $handler->display->display_options['fields']['changed']['custom_date_format'] = 'D, d M y H:i:s O';
   /* Field: Global: Custom text */
   $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
@@ -304,13 +378,29 @@ function oap_video_carousel_views_default_views() {
   $handler->display->display_options['fields']['nothing']['alter']['text'] = 'Oregon State Extension Service';
   $handler->display->display_options['fields']['nothing']['alter']['strip_tags'] = TRUE;
   $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
-  /* Field: Content: Deck */
-  $handler->display->display_options['fields']['field_deck']['id'] = 'field_deck';
-  $handler->display->display_options['fields']['field_deck']['table'] = 'field_data_field_deck';
-  $handler->display->display_options['fields']['field_deck']['field'] = 'field_deck';
-  $handler->display->display_options['fields']['field_deck']['label'] = '';
-  $handler->display->display_options['fields']['field_deck']['alter']['strip_tags'] = TRUE;
-  $handler->display->display_options['fields']['field_deck']['element_label_colon'] = FALSE;
+  /* Field: YouTube Title */
+  $handler->display->display_options['fields']['field_article_videos_2']['id'] = 'field_article_videos_2';
+  $handler->display->display_options['fields']['field_article_videos_2']['table'] = 'field_data_field_article_videos';
+  $handler->display->display_options['fields']['field_article_videos_2']['field'] = 'field_article_videos';
+  $handler->display->display_options['fields']['field_article_videos_2']['ui_name'] = 'YouTube Title';
+  $handler->display->display_options['fields']['field_article_videos_2']['label'] = '';
+  $handler->display->display_options['fields']['field_article_videos_2']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_article_videos_2']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_article_videos_2']['type'] = 'youtube_title';
+  $handler->display->display_options['fields']['field_article_videos_2']['delta_offset'] = '0';
+  /* Field: YouTube Thumbnail */
+  $handler->display->display_options['fields']['field_article_videos_3']['id'] = 'field_article_videos_3';
+  $handler->display->display_options['fields']['field_article_videos_3']['table'] = 'field_data_field_article_videos';
+  $handler->display->display_options['fields']['field_article_videos_3']['field'] = 'field_article_videos';
+  $handler->display->display_options['fields']['field_article_videos_3']['ui_name'] = 'YouTube Thumbnail';
+  $handler->display->display_options['fields']['field_article_videos_3']['label'] = '';
+  $handler->display->display_options['fields']['field_article_videos_3']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_article_videos_3']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_article_videos_3']['type'] = 'file_rendered';
+  $handler->display->display_options['fields']['field_article_videos_3']['settings'] = array(
+    'file_view_mode' => 'default',
+  );
+  $handler->display->display_options['fields']['field_article_videos_3']['delta_offset'] = '0';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
@@ -339,6 +429,7 @@ function oap_video_carousel_views_default_views() {
   $handler->display->display_options['filters']['field_current_issue_value']['id'] = 'field_current_issue_value';
   $handler->display->display_options['filters']['field_current_issue_value']['table'] = 'field_data_field_current_issue';
   $handler->display->display_options['filters']['field_current_issue_value']['field'] = 'field_current_issue_value';
+  $handler->display->display_options['filters']['field_current_issue_value']['relationship'] = 'bid';
   $handler->display->display_options['filters']['field_current_issue_value']['value'] = array(
     'yes' => 'yes',
   );
