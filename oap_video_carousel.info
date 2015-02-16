@@ -1,7 +1,7 @@
 name = OAP Video Carousel
 description = Provides rotating block for article videos
 core = 7.x
-package = Features
+package = OAP
 version = 7.x-1.4
 project = oap_video_carousel
 dependencies[] = ctools
